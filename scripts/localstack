@@ -1,0 +1,2 @@
+docker run --name localstack --rm -it -d -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack
+

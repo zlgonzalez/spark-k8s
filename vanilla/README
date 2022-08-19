@@ -1,0 +1,5 @@
+spark-k8s is for running with the Docker image built from the ground up. This is only for JVM Spark.
+
+spark-k8s-dm is for running with the Docker image from Data Mechanics. This also supports PySpark.
+
+Run any of these scripts at the Spark home.
