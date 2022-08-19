@@ -1,0 +1,19 @@
+#!/bin/bash
+
+./bin/spark-submit \
+  --master k8s://https://localhost:6443 \
+  --deploy-mode cluster \
+  --name spark-pi \
+  --class org.apache.spark.examples.SparkPi \
+  --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark  \
+  --conf spark.executor.instances=5 \
+  --conf spark.kubernetes.container.image=datamechanics/spark:3.1.1-hadoop-3.2.0-java-8-scala-2.12-python-3.8-dm17 \
+  --conf spark.kubernetes.file.upload.path=s3a://spark \
+  --conf spark.hadoop.fs.s3a.endpoint=kubernetes.docker.internal:4566 \
+  --conf spark.hadoop.fs.s3a.access.key=local \
+  --conf spark.hadoop.fs.s3a.secret.key=password \
+  --conf spark.hadoop.fs.s3a.connection.ssl.enabled=false \
+  --conf spark.driver.extraJavaOptions="-Dcom.amazonaws.services.s3.enableV4 -Dcom.amazonaws.services.s3.enforceV4" \
+  --conf spark.executor.extraJavaOptions="-Dcom.amazonaws.services.s3.enableV4 -Dcom.amazonaws.services.s3.enforceV4" \
+  --conf spark.hadoop.fs.s3a.path.style.access=true \
+  file:///Users/zgonzalez/Documents/code/spark-3.3.0/examples/target/scala-2.12/jars/spark-examples_2.12-3.3.0.jar
